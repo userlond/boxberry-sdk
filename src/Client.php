@@ -22,7 +22,7 @@ class Client implements LoggerAwareInterface
     /** @var null */
     private $currentToken = null;
     /** @var \GuzzleHttp\Client|null */
-    private $httpClient = null;
+    protected $httpClient = null;
 
     /**
      * Client constructor.
@@ -90,7 +90,7 @@ class Client implements LoggerAwareInterface
      * @return array
      * @throws BoxBerryException
      */
-    private function callApi($type, $method, $params = [])
+    protected function callApi($type, $method, $params = [])
     {
         if ($type == 'POST') {
             $data = $params;

@@ -92,17 +92,6 @@ class Client implements LoggerAwareInterface
      */
     protected function callApi($type, $method, $params = [])
     {
-        if ($type == 'POST') {
-            $data = $params;
-            $params = [];
-            if ($method == 'ParcelInfo') {
-                $params = $data;
-            }else {
-                $params['sdata'] = json_encode($data);
-            }
-            unset($data);
-        }
-
         $params['token'] = $this->getCurrentToken();
         $params['method'] = $method;
 
@@ -501,6 +490,9 @@ class Client implements LoggerAwareInterface
     public function createOrder($order)
     {
         $params = $order->asArr();
+
+        $params['sdata'] = json_encode($params);
+        
         return $this->callApi('POST', 'ParselCreate', $params);
     }
 
